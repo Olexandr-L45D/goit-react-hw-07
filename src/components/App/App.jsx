@@ -1,17 +1,25 @@
 
 import css from './App.module.css'
-import React from "react";
+import React, { useEffect } from "react";
 import ContactForm from "../ContactForm/ContactForm"
 import SearchBox from "../SearchBox/SearchBox"
 import ContactList from "../ContactList/ContactList"
+import fetchTasks from "../../redux/contactsOps"
+import { useDispatch } from 'react-redux';
 
 export default function App() {
-
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
   return (
     <div className={css.container}>
 
       <h1 className={css.title}>Phonebook</h1>
       <ContactForm />
+      {isLoading && !error && <b>Request in progress...</b>}
       <SearchBox />
       <ContactList />
 
