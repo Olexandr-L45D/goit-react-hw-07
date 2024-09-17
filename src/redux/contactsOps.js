@@ -27,17 +27,18 @@ import { userAPI } from './userAPI'
 // "tasks/fetchAll/fulfilled" - успішне завершення запиту
 // "tasks/fetchAll/rejected" - завершення запиту з помилкою
 
-const instance = axios.create({
-    baseURL: "https://api.themoviedb.org/3/",
-    headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTA1YjQwYTViZDU5OTA1NDIyMGY0NDk3YmEzYjJmNSIsIm5iZiI6MTcyNTU5NDQyMy4yODc1ODgsInN1YiI6IjY2ZDllMWM1ZDhlODg1YWI4NDZkMDkxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TvbdXQqddSub5Mw59Uixse-OSNQE4Xunk36NlBhj_AM' }
-});
+// const instance = axios.create({
+//     baseURL: "https://api.themoviedb.org/3/",
+//     headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTA1YjQwYTViZDU5OTA1NDIyMGY0NDk3YmEzYjJmNSIsIm5iZiI6MTcyNTU5NDQyMy4yODc1ODgsInN1YiI6IjY2ZDllMWM1ZDhlODg1YWI4NDZkMDkxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TvbdXQqddSub5Mw59Uixse-OSNQE4Xunk36NlBhj_AM' }
+// });
+
 // початковий варіант запиту без відпрацювання станів з помилками:
 // export const fetchTasks = createAsyncThunk("contacts/fetchAll", async () => {
 //     const response = await axios.get("/contacts");
 //     return response.data;
 // });
 // це оголошення операції
-export const fetchTasks = createAsyncThunk(
+export const fetchContact = createAsyncThunk(
     "contacts/fetchAll",
     // Використовуємо символ підкреслення як ім'я першого параметра, тому що в цій операції він нам не потрібен
     async (_, thunkAPI) => {

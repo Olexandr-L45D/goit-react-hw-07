@@ -4,28 +4,46 @@ import React, { useEffect } from "react";
 import ContactForm from "../ContactForm/ContactForm"
 import SearchBox from "../SearchBox/SearchBox"
 import ContactList from "../ContactList/ContactList"
-import fetchTasks from "../../redux/contactsOps"
-import { useDispatch } from 'react-redux';
+import fetchContact from "../../redux/contactsOps"
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from "../Loader/Loader";
+import Error from "../Error/Error";
+
 
 export default function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
+  const loading = useSelector(getIsLoading);
   const error = useSelector(getError);
+
   useEffect(() => {
-    dispatch(fetchTasks());
+    dispatch(fetchContact());
   }, [dispatch]);
+
   return (
     <div className={css.container}>
 
-      <h1 className={css.title}>Phonebook</h1>
+      <h1 className={css.title}>Phonebook and HTTP requests</h1>
       <ContactForm />
-      {isLoading && !error && <b>Request in progress...</b>}
+      {loading && <Loader>Loading message</Loader>}
+      {error && <Error>Error message</Error>}
+      {/* {loading && !error && <b>Request in progress...</b>} */}
       <SearchBox />
       <ContactList />
 
     </div>
   )
 };
+
+
+// return (
+//   <main className={css.container}>
+//     <h1>HTTP requests with Redux</h1>
+//     <TaskForm />
+//     {loading && <Loader>Loading message</Loader>}
+//     {error && <Error>Error message</Error>}
+//     <TaskList />
+//   </main>
+// );
 
 
 

@@ -1,6 +1,6 @@
-// contactsSlice.js (це окрема локаль - locale)
+// contactsSlice.js (це окрема локаль - locale-slice)
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTasks, addContact, deleteContact } from './contactsOps';
+import { fetchContact, addContact, deleteContact } from './contactsOps';
 // export const selectContact = (state) => state.locale.items; // повертає шматок стану зі слайсу
 // додаю тут в обєкт початкового стану:loading: false, error: null ддя управління станом Лоадінгу при загрузці та Ерор при помилці
 const slice = createSlice({
@@ -13,15 +13,15 @@ const slice = createSlice({
 
     extraReducers: builder => {
         builder
-            .addCase(fetchTasks.pending, (state, action) => {
+            .addCase(fetchContact.pending, (state, action) => {
                 state.loading = true;
             })
-            .addCase(fetchTasks.fulfilled, (state, action) => {
+            .addCase(fetchContact.fulfilled, (state, action) => {
+                state.items = action.payload;
                 state.loading = false;
                 state.error = null;
-                state.items = action.payload;
             })
-            .addCase(fetchTasks.rejected, (state, action) => {
+            .addCase(fetchContact.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
@@ -29,22 +29,19 @@ const slice = createSlice({
                 state.loading = true;
             })
             .addCase(addContact.fulfilled, (state, action) => {
+                state.items = action.payload;
                 state.loading = false;
                 state.error = null;
-                state.items = action.payload;
             })
             .addCase(addContact.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
-            // дописати лише deleteContact по прикладу з лекції
-            .addCase(deleteContact.pending, (state, action) => {
-                state.loading = true;
-            })
             .addCase(deleteContact.fulfilled, (state, action) => {
+                state.items = state.items.filter(
+                    (item) => item.id !== action.payload.id
+                );
                 state.loading = false;
-                state.error = null;
-                state.items = action.payload;
             })
             .addCase(deleteContact.rejected, (state, action) => {
                 state.loading = false;
@@ -53,6 +50,12 @@ const slice = createSlice({
     },
 });
 
+// .addCase(deleteContact.fulfilled, (state, action) => {
+//     state.items = state.items.filter(
+//         (item) => item.id !== action.payload.id
+//     );
+//     state.loading = false;
+// });
 
 // deleteContact: (state, action) => {
 //     return {
