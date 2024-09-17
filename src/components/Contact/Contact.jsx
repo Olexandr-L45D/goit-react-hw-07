@@ -1,9 +1,9 @@
 import css from "./Contact.module.css"
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
-// 1. Імпортуємо хук
+//  Імпортуємо хук an function deleteContact
 import { useDispatch } from "react-redux";
-import { deleteContact } from '../../redux/contactsSlice'
+import { deleteContact } from '../../redux/contactsOps'
 
 export default function Contact({ contact }) {
     const dispatch = useDispatch();
@@ -25,9 +25,7 @@ export default function Contact({ contact }) {
 
         </div>
     );
-}
-
-
+};
 
 
 
@@ -40,4 +38,4 @@ export default function Contact({ contact }) {
 //     const items = useSelector(deleteContact);
 // };
 
-// export default function Contact({ obj: { id, name, number }, onDelete })
+// export default function Contact({ obj: { id, name, number }, onDelete }) - old Exemple!

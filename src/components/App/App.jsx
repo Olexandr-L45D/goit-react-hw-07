@@ -4,35 +4,39 @@ import React, { useEffect } from "react";
 import ContactForm from "../ContactForm/ContactForm"
 import SearchBox from "../SearchBox/SearchBox"
 import ContactList from "../ContactList/ContactList"
-import fetchContact from "../../redux/contactsOps"
+import { fetchContact } from '../../redux/contactsOps'
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from "../Loader/Loader";
 import Error from "../Error/Error";
 
 
 export default function App() {
+  const loading = useSelector((state) => state.contacts.loading);
+  const error = useSelector((state) => state.contacts.error);
   const dispatch = useDispatch();
-  const loading = useSelector(getIsLoading);
-  const error = useSelector(getError);
 
   useEffect(() => {
     dispatch(fetchContact());
   }, [dispatch]);
 
   return (
-    <div className={css.container}>
+    <main className={css.container}>
 
-      <h1 className={css.title}>Phonebook and HTTP requests</h1>
+      <h1 className={css.title}>Phonebook and HTTP</h1>
       <ContactForm />
       {loading && <Loader>Loading message</Loader>}
       {error && <Error>Error message</Error>}
-      {/* {loading && !error && <b>Request in progress...</b>} */}
+
       <SearchBox />
       <ContactList />
 
-    </div>
+    </main>
   )
 };
+
+// знайти звідки getIsLoading та getError ???
+// const loading = useSelector(getIsLoading);
+// const error = useSelector(getError);
 
 
 // return (
@@ -40,6 +44,7 @@ export default function App() {
 //     <h1>HTTP requests with Redux</h1>
 //     <TaskForm />
 //     {loading && <Loader>Loading message</Loader>}
+//  {/* {loading && !error && <b>Request in progress...</b>} */}
 //     {error && <Error>Error message</Error>}
 //     <TaskList />
 //   </main>

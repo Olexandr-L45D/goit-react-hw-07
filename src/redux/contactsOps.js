@@ -2,45 +2,24 @@
 
 import axios from "axios";
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { userAPI } from './userAPI'
+// import { userAPI, thunkAPI } from './userAPI'
 
-// First, create the thunk
-// const fetchUserById = createAsyncThunk(
-//     'users/fetchByIdStatus',
-//     async (userId: number, thunkAPI) => {
-//         const response = await userAPI.fetchById(userId)
-//         return response.data
-//     },
-// )
-
-// interface UsersState {
-//     entities: User[]
-//     loading: 'idle' | 'pending' | 'succeeded' | 'failed'
-// }
-
+axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
 // Оголоси наступні операції:
-
 // fetchContacts - одержання масиву контактів(метод GET) запитом.Базовий тип екшену це рядок "contacts/fetchAll".
 //     addContact - додавання нового контакту(метод POST).Базовий тип екшену це рядок "contacts/addContact".
 //         deleteContact - видалення контакту по ID(метод DELETE).Базовий тип екшену це рядок "contacts/deleteContact".
 // "tasks/fetchAll/pending" - початок запиту
 // "tasks/fetchAll/fulfilled" - успішне завершення запиту
 // "tasks/fetchAll/rejected" - завершення запиту з помилкою
-
-// const instance = axios.create({
-//     baseURL: "https://api.themoviedb.org/3/",
-//     headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YTA1YjQwYTViZDU5OTA1NDIyMGY0NDk3YmEzYjJmNSIsIm5iZiI6MTcyNTU5NDQyMy4yODc1ODgsInN1YiI6IjY2ZDllMWM1ZDhlODg1YWI4NDZkMDkxMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TvbdXQqddSub5Mw59Uixse-OSNQE4Xunk36NlBhj_AM' }
-// });
-
 // початковий варіант запиту без відпрацювання станів з помилками:
 // export const fetchTasks = createAsyncThunk("contacts/fetchAll", async () => {
 //     const response = await axios.get("/contacts");
 //     return response.data;
 // });
-// це оголошення операції
-export const fetchContact = createAsyncThunk(
-    "contacts/fetchAll",
-    // Використовуємо символ підкреслення як ім'я першого параметра, тому що в цій операції він нам не потрібен
+// це оголошення 3 операції (axios.defaults.baseURL, addContact, deleteContact)
+export const fetchContact = createAsyncThunk("contacts/fetchAll",
+    // in fetchContact Використовуємо символ підкреслення як ім'я першого параметра, тому що в цій операції він нам не потрібен ( а пусто не можна залишати!)
     async (_, thunkAPI) => {
         try {
             const response = await axios.get("/contacts");
@@ -51,13 +30,10 @@ export const fetchContact = createAsyncThunk(
             return thunkAPI.rejectWithValue(e.message);
         }
     }
-
 );
 
 // addContact
-export const addContact = createAsyncThunk(
-    "contacts/addContact",
-    // Використовуємо символ підкреслення як ім'я першого параметра, тому що в цій операції він нам не потрібен
+export const addContact = createAsyncThunk("contacts/addContact",
     async (newContact, thunkAPI) => {
         try {
             const response = await axios.post("/contacts", newContact);
@@ -70,14 +46,11 @@ export const addContact = createAsyncThunk(
     }
 
 );
-
-export const deleteContact = createAsyncThunk(
-    "contacts/deleteContact",
-    // Використовуємо символ підкреслення як ім'я першого параметра, тому що в цій операції він нам не потрібен
+// При успішному запиті повертаємо проміс із даними з бекенду для видалення шукаєм по id - contactId
+export const deleteContact = createAsyncThunk("contacts/deleteContact",
     async (contactId, thunkAPI) => {
         try {
             const response = await axios.delete(`/contacts/ ${contactId}`);
-            // При успішному запиті повертаємо проміс із даними з бекенду
             return response.data;
         } catch (e) {
             // При помилці запиту повертаємо проміс, який буде відхилений з текстом помилки

@@ -8,7 +8,8 @@ import App from './components/App/App';
 // 1. Імпортуємо провайдер
 import { Provider } from 'react-redux'
 // 2. Імпортуємо створений раніше стор, який зберігається в файлі redux/store
-import { store, persistor } from "../src/redux/store";
+// import { store, persistor } from "../src/redux/store";
+import { store } from "../src/redux/store";
 // import { PersistGate } from 'redux-persist/integration/react'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
