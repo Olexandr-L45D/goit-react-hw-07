@@ -4,7 +4,7 @@ import axios from "axios";
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 // import { userAPI, thunkAPI } from './userAPI'
 
-axios.defaults.baseURL = "https://62584f320c918296a49543e7.mockapi.io";
+axios.defaults.baseURL = "https://66ea54bb55ad32cda478635a.mockapi.io";
 // Оголоси наступні операції:
 // fetchContacts - одержання масиву контактів(метод GET) запитом.Базовий тип екшену це рядок "contacts/fetchAll".
 //     addContact - додавання нового контакту(метод POST).Базовий тип екшену це рядок "contacts/addContact".
@@ -37,23 +37,20 @@ export const addContact = createAsyncThunk("contacts/addContact",
     async (newContact, thunkAPI) => {
         try {
             const response = await axios.post("/contacts", newContact);
-            // При успішному запиті повертаємо проміс із даними з бекенду
             return response.data;
         } catch (e) {
-            // При помилці запиту повертаємо проміс, який буде відхилений з текстом помилки
             return thunkAPI.rejectWithValue(e.message);
         }
     }
 
 );
-// При успішному запиті повертаємо проміс із даними з бекенду для видалення шукаєм по id - contactId
+// deleteContact При успішному запиті повертаємо проміс із даними з бекенду для видалення шукаєм по id - contactId
 export const deleteContact = createAsyncThunk("contacts/deleteContact",
     async (contactId, thunkAPI) => {
         try {
             const response = await axios.delete(`/contacts/ ${contactId}`);
             return response.data;
         } catch (e) {
-            // При помилці запиту повертаємо проміс, який буде відхилений з текстом помилки
             return thunkAPI.rejectWithValue(e.message);
         }
     }
@@ -61,24 +58,10 @@ export const deleteContact = createAsyncThunk("contacts/deleteContact",
 );
 
 
-//getProductMovies робить запит на УРЛ до SearchForm
-// async function getProductsSerch(query, page = 1) {
-//     const response = await instance.get(`/search/movie`,
-//         {
-//             params: {
-//                 page,
-//                 query,
-//                 include_adult: false,
-//                 language: "en-US",
-//                 region: "string",
-//                 year: "string"
-//             },
-//         },
-//     )
-//     // console.log(response.data.results)
-//     return response.data.results;
-// };
-// export { getProductsSerch };
+
+
+
+
 
 // //getProductMovies робить запит на УРЛ до HomePage
 // export const getProductMovies = async () => {
