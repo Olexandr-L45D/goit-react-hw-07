@@ -1,6 +1,7 @@
 // contactsSlice.js (це окрема локаль - locale-slice)
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { fetchContact, addContact, deleteContact } from './contactsOps';
+import { selectStatusFilter } from './filtersSlice';
 // export const selectContact = (state) => state.locale.items; // повертає шматок стану зі слайсу
 // додаю тут в обєкт початкового стану:loading: false, error: null ддя управління станом Лоадінгу при загрузці та Ерор при помилці
 const slice = createSlice({
@@ -73,6 +74,9 @@ const slice = createSlice({
 // },
 
 export const selectContacts = (state) => state.contacts.items;
+export const selectOutContacts = createSelector([selectContacts, selectStatusFilter], (contacts, filter) => {
+    return (contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase())))
+});
 // створюємо фабрики екшкнів автоматично (нижче slice.actions.....)
 // slice.actions.addContact();
 // slice.actions.deleteContact();

@@ -6,11 +6,11 @@ import { setChangeFilter, selectStatusFilter } from '../../redux/filtersSlice'
 export default function SearchBox() {
     const dispatch = useDispatch();
     const filter = useSelector(selectStatusFilter);
-    const handleFilterChange = (filter) => dispatch(setChangeFilter(filter));
+    // const handleFilterChange = (filter) => dispatch(setChangeFilter(filter));
 
     // const dispatch = useDispatch();
     // const filter = useSelector(selecFilter);
-    // const handleFilterChange = e => dispatch(changeFilter(e.target.value));
+    const handleFilterChange = e => dispatch(setChangeFilter(e.target.value));
 
     return (
         <div className={css.item}>
