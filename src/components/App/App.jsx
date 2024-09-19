@@ -1,6 +1,7 @@
 
 import css from './App.module.css'
 import React, { useEffect } from "react";
+import WrapperGeneral from "../WrapperGeneral/WrapperGeneral"
 import ContactForm from "../ContactForm/ContactForm"
 import SearchBox from "../SearchBox/SearchBox"
 import ContactList from "../ContactList/ContactList"
@@ -20,23 +21,16 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <main className={css.container}>
-
+    <WrapperGeneral>
       <h1 className={css.title}>Phonebook and HTTP</h1>
       <ContactForm />
       {loading && <Loader>Loading message</Loader>}
       {error && <Error>Error message</Error>}
-
       <SearchBox />
       <ContactList />
-
-    </main>
+    </WrapperGeneral>
   )
 };
-
-// знайти звідки getIsLoading та getError ???
-// const loading = useSelector(getIsLoading);
-// const error = useSelector(getError);
 
 
 // return (

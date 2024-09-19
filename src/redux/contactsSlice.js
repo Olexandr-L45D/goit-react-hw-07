@@ -38,13 +38,19 @@ const slice = createSlice({
                 state.error = action.payload;
             })
             .addCase(deleteContact.fulfilled, (state, action) => {
-                state.loading = false;
-                state.error = null;
-                const index = state.items.findIndex(
-                    contact => contact.id === action.payload.id
+                state.items = state.items.filter(
+                    (item) => item.id !== action.payload.id
                 );
-                state.items.splice(index, 1);
+                state.loading = false;
             })
+            // .addCase(deleteContact.fulfilled, (state, action) => {
+            //     state.loading = false;
+            //     state.error = null;
+            //     const index = state.items.findIndex(
+            //         contact => contact.id === action.payload.id
+            //     );
+            //     state.items.splice(index, 1);
+            // })
             .addCase(deleteContact.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;

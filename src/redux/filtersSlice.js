@@ -1,35 +1,45 @@
-// filtersSlice.js (це окрема локаль - locale)
 import { createSlice } from '@reduxjs/toolkit';
-// export const selecFilter = (state) => state.filters.name; // повертає шматок стану зі слайсу
 
-const slice = createSlice({
+const filtersSlice = createSlice({
     name: "filters",
     initialState: { name: "", },
     reducers: {
-        changeFilter: (state, action) => {
-            // state.name = action.payload;
-            return {
-                ...state,
-                name: action.payload,
-            };
+        setChangeFilter: (state, action) => {
+            state.name = action.payload;
         },
     }
 });
-export const selecFilter = (state) => state.filters.name;
+export const { setChangeFilter } = filtersSlice.actions;
+export const filtersReducer = filtersSlice.reducer;
+export const selectStatusFilter = (state) => state.filters.name;
+
+// export const selecFilter = (state) => state.filters.name;
 // створюємо фабрики екшкнів автоматично (нижче slice.actions.....)
 // slice.actions.changeFilter();
 // slice.actions.selectNameFilter();
-export const { changeFilter } = slice.actions;
+// export const { changeFilter } = slice.actions;
 // кореневий редюсер (або редюсер слайсу за дефолтом)
-export default slice.reducer;
+// export default slice.reducer;
 // console.log(slice.reducer);
 
+// const filtersSlice = createSlice({
+//     name: "filters",
+//     initialState: {
+//         status: "all",
+//     },
+//     reducers: {
+//         setStatusFilter(state, action) {
+//             state.status = action.payload;
+//         },
+//     },
+// });
 
+// export const { setStatusFilter } = filtersSlice.actions;
+// export const filtersReducer = filtersSlice.reducer;
+// export const selectStatusFilter = (state) => state.filters.status;
 
-
-
-
-
+// filtersSlice.js (це окрема локаль - locale - "filters")
+// export const selecFilter = (state) => state.filters.name; // повертає шматок стану зі слайсу
 //  НИЖЧЕ приклад детального створення без БІБЛІОТЕК!
 // export const changeFilter = createAction('filters/changeFilter');
 // export const selectNameFilter = createAction('filters/selectNameFilter');

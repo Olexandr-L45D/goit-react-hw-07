@@ -1,7 +1,6 @@
 import css from "./Contact.module.css"
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
-//  Імпортуємо хук an function deleteContact
 import { useDispatch } from "react-redux";
 import { deleteContact } from '../../redux/contactsOps'
 
@@ -14,7 +13,6 @@ export default function Contact({ contact }) {
 
     return (
         <div className={css.item}>
-            <input type="checkbox" />
             <div className={css.itemText}>
                 <p className={css.text}><BsFillPersonFill />{contact.name}</p>
                 <p className={css.text}><AiFillPhone />{contact.number}</p>
